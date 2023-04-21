@@ -17,6 +17,8 @@ from uuid import uuid4
 from sklearn.base import BaseEstimator, TransformerMixin
 import pandas as pd
 
+
+
 class Date(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
   
@@ -79,7 +81,6 @@ pipeline = joblib.load('pipeline.pickle')
 with open('dtypes.pickle', 'rb') as fh:
     dtypes = pickle.load(fh)
 
-
 # End model un-pickling
 ########################################
 
@@ -91,8 +92,9 @@ app = Flask(__name__)
 
 @app.route('/should_search/', methods=['POST'])
 def predict():
-
+    
     obs_dict = request.get_json()
+
 
     try:
         _id = obs_dict['observation_id']
