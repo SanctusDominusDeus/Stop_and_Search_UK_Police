@@ -80,7 +80,6 @@ pipeline = joblib.load('pipeline.pickle')
 
 with open('dtypes.pickle', 'rb') as fh:
     dtypes = pickle.load(fh)
-
 # End model un-pickling
 ########################################
 
@@ -117,20 +116,21 @@ def predict():
     #implement the mapping for the valid values
     
     valid_category_map = {
-                "observation_id":str() ,
+                "observation_id":'str()' ,
                 "Type":['Person search','Person and Vehicle search','Vehicle search'],
-                'Date':str(),
+                'Date':'()str',
                 'Part of a policing operation':[True, False],
-                'Latitude':float(),#try to add range for the uk
-                'Longitude':float(),#try to add range for the uk
+                'Latitude':'float()',#try to add range for the uk
+                'Longitude':'float()',#try to add range for the uk
                 'Gender': ['Male','Female','Other'],
                 'Age range':['under 10','10-17','18-24','25-34','over 34'],
                 'Officer-defined ethnicity':['White','Asian','Black','Other','Mixed'],
-                'Legislation':str(),
-                'Object of search':str(),#should it be a list???
-                'station':str()
+                'Legislation':'str()',
+                'Object of search':'str()',#should it be a list???
+                'station':'str()'
 
     }
+
     for key in observation.keys():
         if key not in valid_category_map.keys():
             error = '{} is not valid input.'.format(key)
