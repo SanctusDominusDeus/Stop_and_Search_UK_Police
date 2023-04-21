@@ -80,6 +80,7 @@ pipeline = joblib.load('pipeline.pickle')
 
 with open('dtypes.pickle', 'rb') as fh:
     dtypes = pickle.load(fh)
+
 # End model un-pickling
 ########################################
 
@@ -92,25 +93,15 @@ app = Flask(__name__)
 @app.route('/should_search/', methods=['POST'])
 def predict():
     
-    obs_dict = request.get_json()
+    observation = request.get_json()
 
 
     try:
-        _id = obs_dict['observation_id']
+        _id = observation['observation_id']
     except:
         _id = None
         error = 'Missing observation_id.'
         return jsonify({"observation_id":_id,"error":error})
-    
-    try:
-        #observation = obs_dict['data']
-        observation = obs_dict
-        #del observation['admission_id']
-        #test = list(observation.keys())[0]
-    except:
-        #changed
-        error = 'No observation data.'
-        return jsonify({"admission_id":_id, "error": error})
     
     
     #implement the mapping for the valid values
@@ -130,12 +121,18 @@ def predict():
                 'station':'str()'
 
     }
-
+    #to ask for if it has all inputs
+    for key in valid_category_map.keys():
+        if key not in observation.keys():
+            error = '{} is not provided.'.format(key)
+            return jsonify({"observation_id":_id,"error":error})
+    #not run with more than expected inputs
     for key in observation.keys():
         if key not in valid_category_map.keys():
-            error = '{} is not valid input.'.format(key)
+            error = '{} is not a valid input.'.format(key)
             return jsonify({"observation_id":_id,"error":error})
-            
+    
+    
     # the followig is to verify the range
     ''' 
     for key, valid_categories in valid_category_map.items():
@@ -156,7 +153,7 @@ def predict():
 
     response = dict()
     #response['observation_id'] = _id
-    response['outcome'] = prediction
+    response['outcome'] = bool(prediction)
     #response['prediction'] = bool(prediction)
     #response['probability'] = proba
     p = Prediction(
@@ -187,9 +184,8 @@ def update():
         p.actual_outcome = obs['outcome']
         p.save()
         ret_dict = model_to_dict(p)
-        del ret_dict['observation_data']
-        #del ret_dict['id']
-        return jsonify(ret_dict)
+        k = {'observation_id':ret_dict['observation_id'],'outcome':ret_dict['actual_outcome'],'predicted_outcome':ret_dict['predicted_outcome']}
+        return jsonify(k)
         #return jsonify(model_to_dict(p))
     except Prediction.DoesNotExist:
         error_msg = 'Observation ID: "{}" does not exist'.format(obs['admission_id'])
