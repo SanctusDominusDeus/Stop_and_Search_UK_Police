@@ -215,14 +215,6 @@ def update():
         return jsonify({'error': error_msg})
 
 
-
-
-
-
-@app.route('/list-db-contents')
-def list_db_contents():
-    return jsonify([model_to_dict(obs) for obs in Prediction.select()])
-
 # End webserver stuff
 ########################################
 
