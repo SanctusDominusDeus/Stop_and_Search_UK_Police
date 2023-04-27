@@ -155,12 +155,10 @@ def predict():
         predicted_outcome = prediction
     )
     try:
-        print(observation)
         p.save()
     except IntegrityError:
         error_msg = 'Admission ID: {} already exists'.format(_id)
         response['error'] = error_msg
-        print(error_msg)
         DB.rollback()
     return jsonify(response)
 
