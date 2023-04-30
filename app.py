@@ -13,9 +13,12 @@ from playhouse.shortcuts import model_to_dict
 from playhouse.db_url import connect
 from uuid import uuid4
 
-
-from sklearn.base import BaseEstimator, TransformerMixin
 import pandas as pd
+from custom_transformers.transformers import *
+
+'''
+from sklearn.base import BaseEstimator, TransformerMixin
+
 
 
 
@@ -45,7 +48,7 @@ class LatLong_fillna(BaseEstimator, TransformerMixin):
         Xdata["Longitude"] = Xdata.groupby("station").transform(lambda x: x.fillna(x.mean()))
         
         return Xdata
-
+'''
 ########################################
 # Begin database stuff
 
