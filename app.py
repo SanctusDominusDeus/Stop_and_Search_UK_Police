@@ -73,7 +73,7 @@ def predict():
                 "observation_id":str ,
                 "Type":['Person search','Person and Vehicle search','Vehicle search'],
                 'Date':str,
-                'Part of a policing operation':[True, False, np.nan],
+                'Part of a policing operation': [True, False], #this is a more agressive setting to force => more flexible one bool, #
                 'Latitude':float,#try to add range for the uk
                 'Longitude':float,#try to add range for the uk
                 'Gender': ['Male','Female','Other'],
@@ -103,6 +103,20 @@ def predict():
             elif value not in valid_categories:
                 error = "Invalid value provided for {}: {}. Allowed values are: {}".format(
                     key, value, ",".join(["'{}'".format(v) for v in valid_categories]))
+
+
+                #testing for receiving none values###############################################################################################################
+                bad = Prediction(
+                    observation_id=_id,
+                    observation_data=observation)
+                try:
+                    bad.save()
+                except IntegrityError:
+                    #error_msg = 'Admission ID: {} already exists'.format(_id)
+                    #response['error'] = error_msg
+                    DB.rollback()
+                #tesing ended.################################################################################################################################
+
                 return jsonify({"observation_id":_id,"error":error})
         else:
             error = '{} is not provided.'.format(key)
