@@ -29,7 +29,7 @@ DB = connect(os.environ.get('DATABASE_URL') or 'sqlite:///predictions.db')
 class Prediction(Model):
     observation_id = TextField(unique=True)
     observation_data = TextField()
-    predicted_outcome = BooleanField()
+    predicted_outcome = BooleanField(null=True)
     actual_outcome = BooleanField(null=True)
 
     class Meta:
