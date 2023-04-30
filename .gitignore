@@ -1,3 +1,7 @@
+#added by ruben [30/04/2023]
+best_model_no_oversample/
+baseline/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
