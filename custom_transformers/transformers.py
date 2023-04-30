@@ -25,7 +25,12 @@ class LatLong_fillna(BaseEstimator, TransformerMixin):
 
     def transform(self, X, y=None):
         Xdata = X.copy()
-        Xdata["Latitude"] = Xdata.groupby("station").transform(lambda x: x.fillna(x.mean()))
-        Xdata["Longitude"] = Xdata.groupby("station").transform(lambda x: x.fillna(x.mean()))
+        #Xdata["Latitude"] = Xdata.groupby("station").transform(lambda x: x.fillna(x.mean()))
+        #Xdata["Longitude"] = Xdata.groupby("station").transform(lambda x: x.fillna(x.mean()))
+        Xdata["Latitude"] = Xdata.groupby("station")["Latitude"].apply(lambda x: x.fillna(x.mean()))
+        Xdata["Longitude"] = Xdata.groupby("station")["Longitude"].apply(lambda x: x.fillna(x.mean()))
+        
+        #to avoid overfitting to these features and discrimination
+        Xdata = Xdata.drop(['Officer-defined ethnicity','station'], axis=1)        
         
         return Xdata
