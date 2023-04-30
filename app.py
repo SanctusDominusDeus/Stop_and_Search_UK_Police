@@ -15,6 +15,7 @@ from uuid import uuid4
 
 import pandas as pd
 from custom_transformers.transformers import *
+import numpy as np
 
 
 ########################################
@@ -72,7 +73,7 @@ def predict():
                 "observation_id":str ,
                 "Type":['Person search','Person and Vehicle search','Vehicle search'],
                 'Date':str,
-                'Part of a policing operation':[True, False, None],
+                'Part of a policing operation':[True, False, np.nan],
                 'Latitude':float,#try to add range for the uk
                 'Longitude':float,#try to add range for the uk
                 'Gender': ['Male','Female','Other'],
