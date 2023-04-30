@@ -17,6 +17,9 @@ import pandas as pd
 from custom_transformers.transformers import *
 import numpy as np
 
+from imblearn.over_sampling import SMOTE
+from imblearn.pipeline import Pipeline as imbpipe
+
 
 ########################################
 # Begin database stuff
