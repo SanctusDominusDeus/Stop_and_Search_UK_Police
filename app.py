@@ -16,39 +16,7 @@ from uuid import uuid4
 import pandas as pd
 from custom_transformers.transformers import *
 
-'''
-from sklearn.base import BaseEstimator, TransformerMixin
 
-
-
-
-class Date(BaseEstimator, TransformerMixin):
-    def fit(self, X, y=None):
-  
-        return self
-
-    def transform(self, X, y=None):
-        Xdata = X.copy()
-        Xdata['Date'] = pd.to_datetime(Xdata['Date'], infer_datetime_format=True)
-        Xdata['Month'] = Xdata.Date.dt.month
-        Xdata['Week_day'] = Xdata.Date.dt.weekday
-        Xdata['Hour'] = Xdata.Date.dt.hour
-        Xdata['Night'] = (Xdata['Hour'] >= 19) | (Xdata['Hour'] <= 7)
-        Xdata = Xdata.drop(['Date'], axis=1)
-        return Xdata
-#custom transformer for the latitude and longitude fillna
-class LatLong_fillna(BaseEstimator, TransformerMixin):
-    def fit(self, X, y=None):
-  
-        return self
-
-    def transform(self, X, y=None):
-        Xdata = X.copy()
-        Xdata["Latitude"] = Xdata.groupby("station").transform(lambda x: x.fillna(x.mean()))
-        Xdata["Longitude"] = Xdata.groupby("station").transform(lambda x: x.fillna(x.mean()))
-        
-        return Xdata
-'''
 ########################################
 # Begin database stuff
 
@@ -104,7 +72,7 @@ def predict():
                 "observation_id":str ,
                 "Type":['Person search','Person and Vehicle search','Vehicle search'],
                 'Date':str,
-                'Part of a policing operation':[True, False],
+                'Part of a policing operation':[True, False, None],
                 'Latitude':float,#try to add range for the uk
                 'Longitude':float,#try to add range for the uk
                 'Gender': ['Male','Female','Other'],
