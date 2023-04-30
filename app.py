@@ -109,8 +109,8 @@ def predict():
                 #testing for receiving none values###############################################################################################################
                 bad = Prediction(
                     observation_id=_id,
-                    observation_data=observation,
-                    predicted_outcome = None)
+                    observation_data=observation)#,
+                    #predicted_outcome = None)
                 try:
                     bad.save()
                 except IntegrityError:
