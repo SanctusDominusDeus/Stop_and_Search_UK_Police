@@ -33,7 +33,7 @@ class Prediction(Model):
     observation_id = TextField(unique=True)
     observation_data = TextField()
     #predicted_outcome = BooleanField() # this setting forces the officers to fill all the features values.
-    predicted_outcome = BooleanField(null=True) # this is to allow a more flexible app saving requests with NaNs 
+    predicted_outcome = BooleanField(null=True, allow_null=True) # this is to allow a more flexible app saving requests with NaNs 
     actual_outcome = BooleanField(null=True)
 
     class Meta:
