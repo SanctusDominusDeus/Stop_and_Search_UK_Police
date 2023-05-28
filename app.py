@@ -113,7 +113,7 @@ def predict():
                 bad = Prediction(
                     observation_id=_id,
                     observation_data=observation,
-                    predicted_outcome = np.nan)
+                    predicted_outcome = None)
                 try:
                     bad.save()
                 except IntegrityError:
