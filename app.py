@@ -110,17 +110,17 @@ def predict():
 
 
                 #testing for receiving none values###############################################################################################################
-                bad = Prediction(
-                    observation_id=_id,
-                    observation_data=observation
-                )#,
-                    #predicted_outcome = None)
-                try:
-                    bad.save()
-                except IntegrityError:
+                #THE PROBLEM HERE IS THAT SAVE AS DEFAULT AS TRUE FOR THE PREDICTED_OUTCOME
+                #bad = Prediction(
+                #    observation_id=_id,
+                #    observation_data=observation,
+                #    predicted_outcome = None)
+                #try:
+                #    bad.save()
+                #except IntegrityError:
                     #error_msg = 'Admission ID: {} already exists'.format(_id)
                     #response['error'] = error_msg
-                    DB.rollback()
+                #    DB.rollback()
                 #testing ended.################################################################################################################################
 
                 return jsonify({"observation_id":_id,"error":error})
