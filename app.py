@@ -112,15 +112,15 @@ def predict():
                 #testing for receiving none values###############################################################################################################
                 bad = Prediction(
                     observation_id=_id,
-                    observation_data=observation,
-                    predicted_outcome = np.nan)
+                    observation_data=observation)#,
+                    #predicted_outcome = np.nan)
                 try:
                     bad.save()
                 except IntegrityError:
                     #error_msg = 'Admission ID: {} already exists'.format(_id)
                     #response['error'] = error_msg
                     DB.rollback()
-                #tesing ended.################################################################################################################################
+                #testing ended.################################################################################################################################
 
                 return jsonify({"observation_id":_id,"error":error})
         else:
