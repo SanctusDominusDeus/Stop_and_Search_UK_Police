@@ -135,8 +135,9 @@ def predict():
 
 
     obs = pd.DataFrame([observation], columns=columns).astype(dtypes)
-    prediction = pipeline.predict(obs)[0]
-    #proba = pipeline.predict_proba(obs)[0,1]
+    #prediction = pipeline.predict(obs)[0]
+    proba = np.array(pipeline.predict_proba(obs)[0,1])
+    prediction = proba>0.45
 
     response = dict()
     response['outcome'] = bool(prediction)
