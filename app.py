@@ -33,7 +33,7 @@ class Prediction(Model):
     observation_id = TextField(unique=True)
     observation_data = TextField()
     #predicted_outcome = BooleanField() # this setting forces the officers to fill all the features values.
-    predicted_outcome = BooleanField(null=True, allow_null=True) # this is to allow a more flexible app saving requests with NaNs 
+    predicted_outcome = BooleanField(null=True) # this is to allow a more flexible app saving requests with NaNs 
     actual_outcome = BooleanField(null=True)
 
     class Meta:
@@ -112,8 +112,9 @@ def predict():
                 #testing for receiving none values###############################################################################################################
                 bad = Prediction(
                     observation_id=_id,
-                    observation_data=observation,
-                    predicted_outcome = None)
+                    observation_data=observation
+                )#,
+                    #predicted_outcome = None)
                 try:
                     bad.save()
                 except IntegrityError:
